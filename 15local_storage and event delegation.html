@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	<meta charset="UTF-8">
+	<style>
+		.container{
+			width:100vw;
+			height:100vh;
+			background-image: url(image/back4.jpg);
+			background-size: cover;
+		}
+		.main-box{
+			position:absolute;
+			top:50%;
+			left:50%;
+			transform:translate(-50%,-50%);
+			height: auto;
+			color: white;
+			box-shadow: 0px 0px 2px white;
+			padding: 30px;
+			font-size: 20px;
+		}
+		input{
+			width:20px !important;
+			height:20px !important;
+		}
+		#text_field:focus{
+			box-shadow:0px 0px 0px 0px blue,0px 0px 0px 0px blue,0px 0px 0px 0px blue;
+		}
+		#text_field{
+			height: 50px !important;
+			width: 250px !important;
+		}
+		#listitem{
+		     top:80%;
+		}
+		ul li{
+			list-style: none;
+		}
+		
+	</style>
+</head>
+<body>
+<div class="container">
+	<div class="main-box">
+		<div id="centent">
+			<ul class="list">
+				
+	</ul>
+	<form  id="listitem">
+		<label for="text_field">
+				<input type="text"id="text_field"name="text">
+			</label>
+		</form>
+	</div>
+	</div>
+</div>
+<script>	
+	let list_item=document.getElementById('listitem');
+	let list=document.querySelector('.list');
+	let items=JSON.parse(localStorage.getItem('key'))||[];
+	populateList(items,list);
+	list_item.addEventListener('submit',addItems);
+	list.addEventListener('click',toggleDone);
+	function toggleDone(e){
+		let index=e.target.dataset.index;
+	     items=JSON.parse(localStorage.getItem('key'));
+		items[index].done=!items[index].done;
+	    populateList(items,list);
+        items=JSON.stringify(items);
+        localStorage.setItem('key',items);  
+	}
+	function addItems(e){
+        e.preventDefault();
+        let text=(this.querySelector('[name=text]')).value;
+		let item={
+			text:text,
+			done:false
+		};
+	    items=JSON.parse(localStorage.getItem('key'))|| [];
+        items.push(item);
+        populateList(items,list);
+        items=JSON.stringify(items);
+        localStorage.setItem('key',items);
+        this.reset();
+	}
+	function populateList(plate, platelist){
+				platelist.innerHTML=plate.map((plates,index)=>{
+		    		return `<li> <input type="checkbox" ${plates.done?'checked':' '} id="item${index}" data-index=${index}> <label for="item${index}"> ${plates.text}</label></li>`;          
+		}).join(" ");
+
+}
+	</script>
+</body>
+</html>
+

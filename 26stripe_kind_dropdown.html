@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title></title>
+	<style>
+		*{
+			margin:0;
+			padding:0;
+			box-sizing:border-box;
+			text-decoration: none;
+			list-style: none;
+		}
+		.dropdownBaground{
+			position:absolute;
+			top:0;
+			left:0;
+			transition: 0.3s all,0.1s opacity,0.2s translate;
+			background:white;
+			opacity:0;
+			display:block;
+			box-shadow:1px 1px 4px grey;
+		}
+		ul{
+			display:flex;
+			justify-content: space-around;
+			height:100px;
+		}
+		nav li{
+            font-size:18px;
+             border:1px solid black;
+			box-shadow:1px 1px 3px black;
+			height: 30px;
+			padding:5px;
+			margin:5px;
+		}
+		.dropdown1{
+			width:300px;
+			height:300px;
+			display:grid;
+			grid-template-rows: 10% 90%;
+
+		}
+		.dropdown1 img{
+			border:1px solid green;
+			height:100%;
+			width:100%;
+		}
+		.dropdown{
+			box-shadow:2px 2px 10px black;
+			position:absolute;
+				opacity:0;
+			display:block;
+		}
+		.link{
+			display:flex;
+			justify-content: space-around;
+			flex-direction:column;
+			list-style: none;
+			text-decoration: none;
+			font-size:24px;
+			text-shadow:1px 1px 2px grey,1px 1px 2px grey,1px 1px 2px grey;
+			width:150px;
+			height: auto;
+		}
+		.dropdown2{
+			font-size:20px;
+			font-weight: 200;
+			letter-spacing:1.5px;
+			word-spacing:10px;
+		}
+		.trigger-event .dropdown{
+			display:block;
+		}
+		.trigger-event-active .dropdown{
+			opacity:1;
+		}
+		.open{
+			background:white;
+			opacity:1;
+		}
+
+	</style>
+</head>
+<body>
+	<div class="dropdownBaground">
+	</div>
+	<nav class="top"> 
+		<ul class="cool">
+			<li>
+				<a href="#">Profile</a>
+				<div class="dropdown dropdown1">
+					<img src="image/back.jpg">
+					<p class="lead">
+					Hello I am Joker King,My introduction start with as web devloper i can handle any kind of things,so for any kind of website contact me</p>
+				</div>
+			</li>
+			<li>
+				<a href="#">Social media</a>
+				<ul class="dropdown link">
+					<li class="facebook">facebook</li>
+					<li class="twitter">Twitter</li>
+					<li class="instagram">Instagram</li>
+					<li class="whats up">Whats up</li>
+				</ul>
+			</li>
+			<li>
+				<a href="#">contact Us</a>
+				<div class="dropdown dropdown2">
+					<p class="lead">Mobile no.:6289706641,<br>
+					Name: Kohinoor Khan,Age : 20<br>
+					Address: Madal Danga Road bye lane,Garulia North 24 paraganas,<br>
+				</p>
+			</div>
+		</li>
+	</nav>
+	<script>
+		let background=document.querySelector('.dropdownBaground');
+		let trigger=document.querySelectorAll('.cool > li');
+	    trigger.forEach(trigger=>{
+	    	trigger.addEventListener('mouseenter',handleEnter);
+	    	trigger.addEventListener('mouseleave',handleLeave);
+	    });
+	    function handleEnter(){
+	    	this.classList.add('trigger-event');
+	    	setTimeout(()=>{
+	    		this.classList.add('trigger-event-active');
+	    		background.classList.add('open');
+	    		let dropdown=document.querySelector('.trigger-event .dropdown');
+	    	let cord_element=dropdown.getBoundingClientRect();
+	    	background.style.height=cord_element.height;
+	    	background.style.width=cord_element.width;
+	    	background.style.top=cord_element.top;
+	    	background.style.left=cord_element.left;
+	    	},500);
+
+	    	
+	    }
+	    function handleLeave(){
+	    	this.classList.remove('trigger-event','trigger-event-active');
+
+	    }
+
+	</script>
+
+</body>
+</html>

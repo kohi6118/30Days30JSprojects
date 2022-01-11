@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	<meta charset="utf-8">
+	<style>
+	*{
+		margin: 0;
+		padding: 0;
+		box-sizing: border-box;
+	}
+	.container{
+		width: 100vw;
+		height: 100vh;
+		display: grid;
+		grid-template-columns: 30% 70%;
+	}
+	.slidebar{
+       height: 90vh;
+       margin-top: 5vh;
+       width: 100%;
+	}
+	.main{
+         border:1px solid black;
+         box-shadow:1px 1px 5px grey;
+         height: 90vh;
+         margin-top: 5vh;
+         width: 100%;
+   }
+	.button{
+		background-color: blue;
+		color: white;
+		height: 60px;
+		width: 100px;
+		position: relative;
+		top:0;
+		left:0;
+		cursor:pointer;
+		transition-property: all;
+	}
+	.selected{
+		border: 1px dashed white;
+}
+</style>
+</head>
+<body>
+<div class="container">
+	<div class="slidebar">
+</div>
+	<div class="main">
+	<button class="button"type="button">submit</button>
+</div>
+</div>
+	<script>
+		let  button=document.querySelector('.button');
+		let  main=document.querySelector(".main");
+		let  isClick=false;
+		let  box_distanceX=0;
+	  let  box_distanceY=0;
+	  let  isdblClick=false;
+	  let top1;
+	  let left1;
+	  let prev_resize_posX=0;
+	  let prev_resize_posY=0;
+	  let value;
+	  let isResize=false;
+	  button.addEventListener('dblclick',()=>{
+           isdblClick=!isdblClick;
+           button.classList.toggle("selected");
+           button.style.cursor=`pointer`;
+           let top=button.getBoundingClientRect().top;
+           let left=button.getBoundingClientRect().left;
+           let left1=left-main.offsetLeft;
+           let top1=top-main.offsetTop;
+    });
+		main.addEventListener('mousedown',(e)=>{
+			if(e.target==button){
+                  isClick=true;
+                  box_distanceX=e.offsetX;
+                  box_distanceY=e.offsetY;
+					if(e.offsetX<=((button.offsetWidth*2)/100) || e.offsetX>=((button.offsetWidth*98)/100) || e.offsetY<=((button.offsetHeight*2)/100)  || e.offsetY>
+						((button.offsetHeight*98)/100) ){
+						if(e.offsetX<=((button.offsetWidth*2)/100))
+							value=0;
+						else if(e.offsetX>=((button.offsetWidth*98)/100))
+							value=2;
+						else if(e.offsetY<=((button.offsetHeight*2)/100))
+							value=1;
+						else
+							value=3;
+						isResize=true;
+						prev_resize_posX=e.offsetX+e.target.offsetLeft+main.offsetLeft;
+						prev_resize_posY=e.offsetX+e.target.offsetTop+main.offsetTop;
+	}
+ }
+});
+		main.addEventListener('mouseup',()=>{
+			isClick=false;
+			isResize=false;
+		});
+		main.addEventListener('mouseout',()=>{
+			isClick=false;
+			isResize=false;
+		});
+		main.addEventListener('mousemove',function (e){
+			if(isdblClick){
+				if(e.target==button){
+					if(e.offsetX<=((button.offsetWidth*2)/100) || e.offsetX>=((button.offsetWidth*98)/100) ){ 
+						button.style.cursor=`col-resize`;
+					}
+					else if(e.offsetY<((button.offsetHeight*2)/100) || e.offsetY>((button.offsetHeight*98)/100) ){
+                      button.style.cursor=`row-resize`;
+					}
+					else{
+						button.style.cursor='pointer';
+					}
+				}
+			}
+			else if(isClick){
+			    let width=this.offsetWidth;
+			    let height=this.offsetHeight;
+				let x=e.offsetX;
+				let y=e.offsetY;
+				if(this!=e.target){
+                    x=((x+(e.target.offsetLeft-this.offsetLeft))-box_distanceX);
+                    y=((y+(e.target.offsetTop-this.offsetTop))-box_distanceY);
+				}
+            let left=(x/width)*100;
+            let top=(y/height)*100;
+            if(top<=100 && left<=100){
+            button.style.top=`${top}%`;
+            button.style.left=`${left}%`;
+        }
+	    }
+	     if(isResize && isdblClick){
+	    	let width1;
+	    	let height1;
+	    	let top=button.offsetTop
+	    	let left=button.offsetLeft;
+	    	let x=e.offsetX;
+	    	let y=e.offsetY;
+	    	let left2=left1+button.offsetLeft+main.offsetLeft;
+	    	let top2=top1+button.offsetTop+main.offsetTop;
+	    	if(e.target!=this){
+	    		 x=(x+(e.target.offsetLeft+this.offsetLeft));
+           y=(y+(e.target.offsetTop+this.offsetTop));
+	    	}
+	    	if(value==0 && ((left2+button.offsetWidth)>x) && (left2<x)){
+	    		   left=left1;
+            left=(e.offsetX-left);
+            width1=(prev_resize_posX-x);
+            height1=button.offsetHeight+(y-prev_resize_posY);
+	    	}
+	    	else if(value==0 && ((left1+button.offsetWidth)>x) && (left1>=x)){
+           left=(left1+e.offsetY);
+           width1=button.offsetWidth+Math.abs(x-prev_resize_posX);
+           height1=button.offsetHeight+(y-prev_resize_posY);
+	    	}
+	    	if(value==1 && ((top1+button.offsetHeight)>y) && (top1<y)){
+            top=(top1+e.offsetY)-(button.offsetLeft+main.offsetLeft);
+            height1=(prev_resize_posY-y); 
+            width1=button.offsetWidth+(x-prev_resize_posX);
+	    	}
+	    	else if(value==1 && ((top1+button.offsetHeight)<y) && (top1>=y)){
+            top=(top1-e.offsetY)-(e.offsetLeft+button.offsetLeft);
+            height1=button.offsetHeight+Math.abs(y-prev_resize_posY);
+            width1=button.offsetWidth+(x-prev_resize_posX);
+	    	}
+	    	else{
+        width1=button.offsetWidth+(x-prev_resize_posX);
+        height1=button.offsetHeight+(y-prev_resize_posY);
+       }
+ 	      button.style.height=`${height1}px`;
+	      button.style.width=`${width1}px`;
+	      button.style.top=`${top}px`;
+	      button.style.left=`${left}px`;
+	      console.log("width1"+width1);
+	      console.log("height1"+height1);
+	      console.log("top"+top);
+	      console.log("left"+left);
+	      prev_resize_posX=x;
+	      prev_resize_posY=y;
+	    }
+		});
+	</script>
+</body>
+</html>

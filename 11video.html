@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/fontawesome.css"rel="stylesheet">
+	<style>	
+		*{
+			margin:0;
+			padding:0;
+			box-sizing: border-box;
+		}
+		.container{
+			width:100vw;
+			height:100vh;
+			background:linear-gradient(-30deg,violet 0%,blue 50%,lightblue 50%,violet 100%);
+		}
+		.section_player{
+			position: relative;
+			top:50%;
+         left:50%;
+			width:400px;
+			height:300px;
+			box-shadow: 0px 0px 5px 1px grey;
+			transform: translate(-50%,-50%);
+			overflow: hidden;
+		}
+	.bottom_section{
+		position:absolute;
+		top:80%;
+		left:0%;
+		width:100%;
+		z-index:300;
+		transform: translateY(100%);
+		transition: 1s all;
+		}
+	.progress_bar{
+		width:0px;
+		height:20px;
+		border-radius: 5px;
+		
+			}
+	.progress_bar_box{
+         width:400px;
+		height:20px;
+		background-color:white;
+		border-radius: 5px;
+		box-shadow: 0px 0px 5px 1px black;
+		cursor:pointer;
+
+	}
+	.control_element{
+		width:100%;
+		height:60%;
+		display:flex;
+		justify-content: space-between;
+		margin: 2% auto;
+	}
+	.skip_tag{
+		width:33%;
+		display: flex;
+		justify-content: space-around;
+	}
+	.video_control{
+		width:33%;
+		cursor:pointer;
+	}
+	.speed{
+		width:33%;
+	}
+	.speed_range{
+		width:132px !important;
+		height:10px !important;
+		background: linear-gradient(0deg,violet,blue) !important;
+;
+	}
+	button{
+		background: transparent;
+	}
+	.actual_video_controller{
+			width:40px;
+			height:100%;
+		    box-shadow:1px 1px 4px grey;
+		    border-radius: 20px;
+		    cursor:pointer;
+		    background:white;
+		}
+	.video_controller{
+		position:absolute;
+		top:50%;
+		left:70%;
+		transform:translate(-50%,-50%);
+		width:40px;
+		height:300px;
+
+		}
+	.actual_video_controller_content{
+			width:100%;
+			height:17%;
+			border-radius:20px; 
+			background: linear-gradient(0deg,violet,blue);
+			color:white;
+			font-size: 18px;
+		}
+
+	.active{
+		transform: translateY(0%);
+
+	}
+
+	</style>
+</head>
+<body>
+	<div class="container">
+		<div class="section_player">
+			<video class="view"src="image/natural_video.mp4"alt="video not found">
+				<!--<source src="image/video.mp4" alt="video not found">-->
+			</video>
+		<div class="bottom_section">
+			<div class="progress_bar_box">
+			<progress class="progress_bar"style="background: linear-gradient(0deg,violet,blue) !important;">
+			</progress>
+		</div>
+			<div class="control_element">
+				<div class = "video_control"style="padding-left: 40px;">
+					<i class="fa fa-pause"id="control_icon">
+					</i>
+				</div>
+				<div class="volume">
+					<input type="range"max="1"min="0"step="0.1"name="volume">
+				</div>
+						<div class="skip_tag">
+					<div data-skip="1"class="forward_skip">
+						<button type="forward"><i class="fa fa-forward"></i></button>
+					</div>
+					<div class="backward_skip"data-skip="-1">
+						<button type="backword">
+							<i class="fa fa-backward"></i></button>
+					</div>
+				</div>
+		</div>
+		</div>
+		</div>
+	</div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/js/fontawesome.js"></script>
+<script>
+let section_player=document.querySelector(".section_player");
+let view=section_player.querySelector(".view");
+let progress_bar_box=section_player.querySelector(".progress_bar_box");
+let progress_bar=section_player.querySelector(".progress_bar");
+let video_control=section_player.querySelector(".video_control");
+let skip_tag=section_player.querySelectorAll("[data-skip]");
+let volume=section_player.querySelector("input");
+let bottom_section=section_player.querySelector(".bottom_section");
+let actual_video_controller_content=document.querySelector('.actual_video_controller_content');
+let actual_video_controller=document.querySelector('.actual_video_controller');
+let main_Section=document.querySelector('.main_Section');
+let video_controller=document.querySelector('.video_controller');
+let video_control_icon=document.querySelector('#control_icon');
+
+function handleclickonvideo(){
+	view.play;
+}
+function clickElement(){
+   let method=view.paused ? 'play':'pause';
+   view[method]();
+  video_control_icon.classList.toggle('fa-play');
+  video_control_icon.classList.toggle('fa-pause')
+
+}
+function volumeadjust(){
+        view[this.name]=this.value;
+}
+function handleskip(){
+	view.currentTime=view.currentTime+parseFloat(this.dataset.skip);
+	handleclickonvideo();
+}
+function handleprogressbar(){
+	let percentage=(view.currentTime/view.duration)*100;
+	progress_bar.style.width=`${percentage}%`;
+	handleclickonvideo();
+	
+}
+function handle_video_length(e){
+	let position_persentage=(e.offsetX/progress_bar_box.clientWidth)*100;
+	console.log(position_persentage);
+    let new_video_time=((view.duration/100)*position_persentage);
+    console.log(new_video_time);
+    view.currentTime=new_video_time;
+    handleclickonvideo();
+
+}
+/*
+let size=window.innerWidth;
+let width=`${((size/10)*8)}px`;
+let height=`${(size/10)*6}px`;
+section_player.style.height=`${height}`;
+section_player.style.width=`${width}`;
+*/
+progress_bar_box.addEventListener('click',handle_video_length);
+skip_tag.forEach(skip=>{
+	skip.addEventListener('click',handleskip)
+});
+volume.addEventListener('change',volumeadjust);
+video_control.addEventListener('click',clickElement);
+view.addEventListener('click',handleclickonvideo);
+view.addEventListener('timeupdate',handleprogressbar);
+bottom_section.addEventListener('mousemove',()=>{
+	bottom_section.classList.add('active');
+	handleclickonvideo();
+});
+	actual_video_controller.addEventListener('mousemove',function (e){
+			let current_Height=(e.pageY-((this.offsetTop+video_controller.offsetTop)-video_controller.clientHeight/2));
+			let actual_height=this.clientHeight;
+			let fraction=(current_Height/actual_height);
+			let persentage=`${fraction*100}%`;
+			actual_video_controller_content.style.height=persentage;
+			let min=0.4;
+			let max=4;
+			let playbackrate=(fraction*(max-min)+min);
+			view.playbackRate=playbackrate;
+			actual_video_controller_content.textContent=`${playbackrate.toFixed(1)}x`;
+
+});
+</script>
+</body>
+</html>

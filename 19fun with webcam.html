@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	<meta charset="utf-8">
+
+</head>
+<body>
+	<div class="main_div">
+		<div class="control">
+			<button class="btn btn-success"onclick="clickPhoto">click me</button>
+			<label for="max-red">Red-max</label>
+			<input type="range"name="max-red"min=0 max=255><br>
+			<label for="max-red">Red-min</label>
+			<input type="range"name="min-red"min=0 max=255><br>
+			<label for="max-red">Grenn-max</label>
+			<input type="range"name="max-green"min=0 max=255><br>
+			<label for="max-red">Grenn-min</label>
+			<input type="range"name="min-green"min=0 max=255><br>
+			<label for="max-red">Blue-max</label>
+			<input type="range"name="max-blue"min=0 max=255><br>
+			<label for="max-red">Blue-min</label>
+			<input type="range"name="min-blue"min=0 max=255><br>
+			<label for="max-red">Alpha</label>
+			<input type="range"name="alpha"min=0 max=255><br>
+		</div>
+		<canvas class="photo"style="border:1px solid black;"></canvas>
+		<video class="player"style="height:300px;width:300px;box-shadow:0px 0px 0px 3px black;"autoplay="true"></video>
+		<button type="button"onclick="startWebcam()">start webcam</button>
+		<div class="strip"></div>
+		<audio src="#"></audio>
+	
+</div>
+
+<script>
+	let video=document.querySelector('.player');
+	let canvas=document.querySelector(".photo");
+	function startWebcam(){
+		navigator.mediaDevices.getUserMedia({video:true}).then(function (localMediaStream){
+			/*let textFileAsBlob = new Blob([localMediaStream],{"type":"video/mp4"});
+		   video.src=URL.createObjectURL(textFileAsBlob);*/
+		   video.srcObject=localMediaStream;
+		});
+	}
+	//startWebcam();
+	function clickPhoto(){
+       let ctx=canvas.getContext("2d");
+       
+	}
+</script>
+</body>
+</html>

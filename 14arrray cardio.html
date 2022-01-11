@@ -1,0 +1,59 @@
+
+
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title></title>
+</head>
+<body>
+	<script>
+	let data=[{fname:"kohinoor",lname:"khan",year:1920,passed:2000},
+	    {fname:"faiz",lname:"khan",year:1930,passed:2001},
+	    {fname:"nishant",lname:"gupta",year:1820,passed:1900},
+	    {fname:"sagar",lname:"chahuan",year:1870,passed:1970}];
+
+	let name=["kohi,khan","nishant,gupta","faiz,khan","ankit,raj","sagar,chahuan","keshav,thakur","deepak,khatri","sandeep,kumar","sachin,kumar","sachin,bist","satyam,srivastava"];
+	/// print the filter array in term of year 
+	//let filter=data.filter(data=>data.year>1900);
+		//console.log(filter);
+	///sorting array in term of lnamm;
+/*
+	const sort=name.sort((lastone,nextone)=>{
+     const [afname,alname]=lastone.split(",");
+     const [bfname,blname]=nextone.split(",");
+             return alname>blname?1:-1;
+     	});
+	console.log(sort);
+	//map the full name
+	let fullname=name.map((data)=>{
+        const [fname,lname]=data.split(",");
+        data.fullname=fname+" "+lname;
+        return data;
+	});
+	console.log(fullname);
+	console.log(data);
+	let every=data.every((data)=>data.year>1900);
+	console.log(every);
+	//console.log(fullname);
+	
+	
+	//console.log(data);*/
+	// reduce 
+	/*let reduce=data.reduce(()=>{
+		return data.year;
+	});
+	let reduce=data.reduce(value=>value.year);
+console.log(reduce);
+let find=data.find((value)=>value.year=1920);
+console.log(find);
+*/
+let findIndex=data.findIndex((value)=>value.year===1820);
+//data.splice(findIndex,1);
+data1=[...data.slice(0,findIndex),
+        ...data.slice(findIndex+1)];
+console.log(data1);
+console.log(data);
+	</script>
+</body>
+</html>

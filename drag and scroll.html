@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	<style>
+		*{
+			margin:0;
+			padding: 0;
+			box-sizing: border-box;
+		}
+	
+	.container{
+		width:100vw;
+		height:100vh;
+}
+.main_section{
+	position:absolute;
+	height:400px;
+	top:50%;
+	width:80%;
+	margin-left:10%;
+	transform:translate(0%,-50%);
+	border:1px dashed black;
+	display:flex;
+	cursor:pointer;
+}
+.item{
+	width:200px;
+	height:300px;
+	box-shadow:1px 1px 4px black;
+	margin-top:50px;
+	transform:perspective(800px) rotateY(120deg);
+	cursor:pointer;
+}
+</style>
+</head>
+<body>
+	<div class="container">
+	<div class="main_section">
+	<div class="item">1</div>
+	<div class="item">2</div>
+	<div class="item">3</div>
+	<div class="item">4</div>
+	<div class="item">5</div>
+	<div class="item">6</div>
+	</div>
+	</div>
+	<script>
+		let main_section=document.querySelector('.main_section');
+		let width=document.querySelector('.item').clientWidth;
+		let item=document.querySelectorAll('.item');
+		let lastone;
+		let isWorking=false;
+		function my_fun(e){
+			if(isWorking){
+				let  current_one=e.pageX;
+				let differnce=(current_one-lastone);
+				lastone=current_one;
+				console.log(`height=${width}`);
+				let persentage=width/60;
+				let degree=(persentage*differnce);
+				console.log(degree);	
+			}
+
+		}
+          main_section.addEventListener('mousedown',(e)=>{
+          	lastone=e.pageX;
+          	console.log(lastone);
+          });
+          main_section.addEventListener('mouseup',()=>isWorking=false);
+          main_section.addEventListener('mouseout',()=>isWorking=false);
+         main_section.addEventListener('mousemove',my_fun);
+         
+	</script>
+
+</body>
+</html>

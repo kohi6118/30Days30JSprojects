@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+<title></title>
+<style>
+	*{
+		margin:0;
+		padding:0;
+		box-sizing: border-box;
+	}
+   :root{
+		--base:yellow;
+		--spacing:5px;
+		--blur:10px;
+	}
+	.container{
+		width:100vw;
+		height:100vh;
+		border:1px solid black;
+		background-color: rgba(0,0,0,0.1);
+}
+	.main{
+			width:700px;
+			height:700px;
+			position:absolute;
+            left:50%;
+			top:50%;
+			transform: translate(-50%,-50%);
+			box-shadow: 0px 0px 5px 1px white;
+		}
+		.section{
+			width:500px;
+			height:400px;
+		}
+		.image{
+			width:700px;
+			height:500px;
+		}
+		.control{
+			width:100%;
+			height:100px;
+			display:flex;
+			justify-content: space-around;
+			font-size: 20px;
+			text-transform: capitalize;
+			color:red;
+			padding:40px 0px;
+			}
+		.field{
+			display:block;
+			width:150px;
+			height:7px;
+			border-radius: 10px;
+			box-shadow: 1px 1px 5px 1px black;
+			border:1px solid white;
+			cursor:pointer;
+			position:relative;
+		}
+h1{
+	text-align:center;
+	font-size: 30px;
+	color:grey;
+	text-shadow:1px 1px 3px blue;
+	padding: 5px;
+}
+.indicator{
+	display:flex;
+    line-height: 40px;
+	width:15px;
+	height:15px;
+	border-radius:50%;
+	background-color:white;
+   position: absolute;
+   margin-top:-5px;
+}	
+.color-control{
+	display:flex;
+	justify-content: center;
+	align-items:center;
+}
+.color-control input {
+	width:60px;
+	height:40px;
+	box-shadow: 0px 0px 4px 1px white;
+}	
+img{
+	width:100%;
+	height:100%;
+	padding:var(--spacing);
+	filter:blur(var(--blur));
+	background-color:var(--base);
+}
+</style>
+</head>
+<body>
+<div class="container">
+	<div class="main">
+	<div class="section">
+	<h1>CSS VARIABLE</h1>
+	<div class="control">
+	<div class="control-blur">
+	<span>padding:</span>
+	<input name="spacing"class="field"type="range" min='5' max='50'value="5" step='2'data-sizing='px'>
+	</div>
+<div class="control-brigthness">
+	<span>Blur:</span>
+		<input type="range"min='0' max= '10'data-sizing='px' step='1'name="blur"class="field"value="5"></div>
+</div>
+<div class="color-control">
+	<span style="color:red;font-size: 20px">Colour:</span>
+		<input type="color"id="colour"class="field"name="base">
+	</div>
+	<div class="image">
+		<img src="image/back4.jpg">
+	</div>		
+</div>
+</div>
+</div>
+<script>
+   function func(){
+   	    let suffix=this.dataset.sizing || ' ';
+  document.documentElement.style.setProperty(`--${this.name}`,this.value+`${suffix}`);
+
+   }
+   let image=document.querySelector("img");
+   let input_field=document.querySelectorAll(".field");
+   input_field.forEach(value=>{
+   	value.addEventListener('change',func);
+   	value.addEventListener('mousemove',func);
+   });
+
+</script>
+</body>
+</html>

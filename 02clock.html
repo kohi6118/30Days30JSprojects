@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	<meta charset="UTF-8">
+	<style>
+		*{
+			margin:0;
+			padding:0;
+			box-sizing: border-box;
+		}
+		.container{
+			width:100vw;
+			height:100vh;
+			background-image: url('back4.jpg');
+			background-repeat: no-repeat;
+			background-size: cover;
+		}
+		.clock{
+			width:500px;
+			height:500px;
+			border-radius: 50%;
+			border:1px solid black;
+			background-image: url('back4.jpg');
+			background-size:cover;
+            position: relative;
+			transform: translate(-50%,-50%);
+			left:50%;
+			top:50%;
+			box-shadow: 1px 1px 15px 3px rgba(0,0,0,0.2);
+		}
+.minute,.hour,.second{
+			border-radius: 20px;
+			position: absolute;
+			top:50%;
+			left:50%;
+			transform: rotateZ(0deg);
+			transform-origin: top;
+			box-shadow: 1px 1px 5px 3px rgba(0,0,0,0.2);
+			background-color: white;		
+}
+.hour{
+            width:10px;
+			height:140px;
+			border:0.5px solid white;
+		}
+.minute{
+            width:7px;
+			height:160px;
+			border:0.5px solid white;
+}
+.second{
+	         width:4px;
+			height:180px;
+			border:0.5px solid white;
+
+}
+.div_element {
+	        border-radius: 20px;
+			position: absolute;
+			top:50%;
+			left:50%;
+			transform-origin: top;
+			height:230px;
+			display: flex;
+			justify-content: flex-end;
+			flex-direction: column;	
+			font-size:35px;
+			text-shadow:1px 1px 4px blue;
+}
+.div1{
+transform: rotateZ(210deg);
+}
+.div2{
+transform: rotateZ(240deg);
+}
+.div3{
+transform: rotateZ(270deg);
+}
+.div4{
+transform: rotateZ(300deg);
+}
+.div5{
+transform: rotateZ(330deg);
+}
+.div6{
+transform: rotateZ(360deg);
+}
+.div7{
+transform: rotateZ(30deg);
+}
+.div8{
+transform: rotateZ(60deg);
+}
+.div9{
+transform: rotateZ(90deg);
+}
+.div10{
+transform: rotateZ(120deg);
+}
+.div11{
+transform: rotateZ(150deg);
+}
+.div12{
+transform: rotateZ(180deg);
+}
+.rotate{
+          transform: rotateZ(180deg);
+}
+.rotate1{
+	transform:rotateZ(270deg);
+}
+.rotate2{
+	transform:rotateZ(90deg);
+}
+	</style>
+</head>
+<body>
+<div class="container">
+	<div class="clock"id="number">
+		<div class="div_element div1">
+			<div class="rotate">1</div>
+		</div>
+				<div class="div_element div2">
+			    <div class="rotate">2</div>
+		</div>
+				<div class="div_element div3">
+			<div class="rotate2">3</div>
+		</div>
+				<div class="div_element div4">
+			<div class="">4</div>
+		</div>
+				<div class="div_element div5">
+			<div class="">5</div>
+		</div>
+				<div class="div_element div6">
+			<div class="">6</div>
+		</div>
+				<div class="div_element div7">
+			<div class="">7</div>
+		</div>
+				<div class="div_element div8">
+			<div class="">8</div>
+		</div>
+		<div class="div_element div9">
+			<div class="rotate1">9</div>
+		</div> 
+		<div class="div_element div10">
+			<div class="rotate">10</div>
+		</div>
+				<div class="div_element div11">
+			<div class="rotate">11</div>
+		</div>
+				<div class="div_element div12">
+			<div class="rotate">12</div>
+		</div>
+		<div class="hour">
+	</div>
+		<div class="minute">
+	</div>
+		<div class="second">
+		</div>
+	</div>
+</div>
+<script>
+	let hour=document.querySelector(".hour");
+	let minute=document.querySelector(".minute");
+	let second=document.querySelector(".second");
+	let clock=document.querySelector(".clock");
+	let number=document.querySelector(".number");
+  let time=()=>{
+    let time=new Date();
+    let hours=time.getHours();
+    let minutes=time.getMinutes();
+    let seconds=time.getSeconds();
+     hours=`${hours>12?hours%12:hours}`;
+     minutes=`${minutes<10?'0':''}${minutes}`;
+    seconds=`${seconds<10?'0':''}${seconds}`;
+    let hour_position=((360/12)*parseInt(hours)+180);
+    let minute_position=((360/60)*parseInt(minutes)+180);
+    let second_position=((360/60)*parseInt(seconds)+180);
+    hour.style.transform=`rotateZ(${hour_position}deg)`;
+    minute.style.transform=`rotateZ(${minute_position}deg)`;
+    second.style.transform=`rotateZ(${second_position}deg)`;
+   }
+ setInterval(time,1000);
+  </script>
+</body>
+</html>

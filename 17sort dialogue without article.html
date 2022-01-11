@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+</head>
+<body>
+	<script>
+		let array=["the jang of wasepur","you old champ","jag ghoomyya","a you along my friend"];
+		let array2=[];
+		let index=[];
+		array.forEach(value=>{
+			let array1=value.split(" ");
+			array2.push(array1);
+		})
+		/*let new_array=array2.sort((a,b)=>{
+			if(a[0]=='the'||'an'||'a'){
+				if(b[0]=='the'||'an'||'a'){
+					return a[1]>b[1]?1:-1;
+				}
+				else{
+					return a[1]>b[0]?1:-1;
+				}
+			}
+			if(b[0]=='the'||'an'||'a'){
+				return a[0]>b[1]?1:-1;
+			}
+			else{
+				return a[0]>b[0]?1:-1;
+			}
+		});
+		let new_array1=[];
+		 new_array1=new_array.map(value=>{
+			return value.join(" ");
+		});
+		 console.log(new_array1);
+		 */
+		 let new_array=array.sort((a,b)=>{
+		 	let [afirst,asecond]=a.split(" ",2);
+		 	let [bfirst,bsecond]=b.split(" ",2);
+		 	if(afirst=='the'||'an'||'a'){
+		 		if(bfirst=='the'||'an'||'a'){
+		 			return asecond>bsecond?1:-1;
+		 		}
+		 	}
+		 	if(bfirst=='the'||'an'||'a'){
+		 		return afirst>bsecond?1:-1;
+		 	}
+		 	else{
+		 		return afirst>bfirst?1:-1;
+		 	}
+		 });
+		 console.log(new_array);
+	</script>
+</body>
+</html>

@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	<style>
+		*{
+			margin:0;
+			padding:0;
+			box-sizing:border-box;
+		}
+		.container{
+			width:100vw;
+			height:100vh;
+			position:relative;
+			background-image: url(image/back4.jpg);
+			background-size: cover;
+		}
+		.main_element{
+			position:absolute;
+			top:50%;
+			left:50%;
+			height:350px;
+			width:500px;
+			transform:translate(-50%,-50%);
+			box-shadow: 0px 0px 3px 1px white,0px 0px 3px 1px white,0px 0px 3px 1px white;
+		}
+		.checkboxs{
+			list-style: none;
+			display: flex;
+			flex-direction: column;
+			justify-content: space-around;
+		}
+	    .checkbox-item .active{
+			background:blue;
+		}
+		.checkbox{
+            color: white;
+            text-align: center;
+            padding: 5px;
+            font-size: 20px;
+        		}
+		.checkbox input{
+			width: 30px !important;
+			height: 20px !important;
+		}
+		.checkbox input {
+	      margin: 5px 20px;
+		}
+	</style>
+</head>
+<body>
+	<div class="container">
+		<div class="main_element">
+	   <div class="checkboxs">
+	   	<div class="checkbox">
+		<input class="checkbox-item"type="checkbox"><label>message 1</label>
+	   </div>
+	   <div class="checkbox">
+		<input class="checkbox-item"type="checkbox"><label>message 2</label>
+	   </div>
+	   <div class="checkbox">
+		<input class="checkbox-item"type="checkbox"><label>message 3</label>
+	   </div>
+	   <div class="checkbox">
+		<input class="checkbox-item"type="checkbox"><label>message 4</label>
+	   </div>
+	   <div class="checkbox">
+		<input class="checkbox-item"type="checkbox"><label>message 5</label>
+	   </div>
+	   <div class="checkbox">
+		<input class="checkbox-item"type="checkbox"><label>message 6</label>
+	   </div>
+	   <div class="checkbox">
+		<input class="checkbox-item"type="checkbox"><label>message 7</label>
+	   </div>
+	   <div class="checkbox">
+		<input class="checkbox-item"type="checkbox"><label>message 8</label>
+	   </div>
+	   	</div>
+	</div>
+	<script>
+     let checkboxItem=document.querySelectorAll('.checkbox-item');
+     function myfunction(e){
+     	let inBetween=false;   
+     checkboxItem.forEach(value=>{ 
+           if(value.checked){
+           	inBetween=!inBetween;
+           }
+           if(inBetween){
+           	value.setAttribute('checked',true);
+           }
+     });
+ }
+ checkboxItem.forEach((value)=>{
+ 	value.addEventListener('click',function(e){
+ 	    if(e.shiftKey){
+ 		myfunction();
+ 	}
+ 	});
+ })
+	/*
+     	var i
+     	ndex1=0;
+		var index2=0;
+        let checkboxItem= document.querySelectorAll(".checkbox-item");
+ function addCheckEvent(){
+         if(index1>0 && index2>0){
+          	if(index1>index2){
+          		for(let i=index2;i<index1;i++){
+          			checkboxItem[i-1].setAttribute('checked',true);
+          		}
+          	}
+          	else if(index1<index2){
+          		for(let i=index1;i<index2;i++){
+          			checkboxItem[i-1].setAttribute('checked',true);
+          		}
+          	}
+          	index1=0;
+            index2=0;
+          }
+          }
+function func(){
+          	if(index1==0){
+          	 index1=document.querySelector(".checkbox-item.active").dataset.index;
+          	 alert(index1);
+          	checkboxItem[index1-1].classList.remove('active');	
+             }
+            else{
+            index2=document.querySelector('.checkbox-item.active').dataset.index;
+            alert(index2);
+            addCheckEvent();
+            }
+
+      }
+		checkboxItem.forEach((value)=>{
+               value.addEventListener('change',(e)=>{
+                 e.target.classList.add('active');
+                 func();
+               });
+		});   
+     */
+	</script>
+
+
+</body>
+</html>

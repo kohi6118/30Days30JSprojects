@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	<meta charset="utf-8">
+	<style>
+		*{
+			box-sizing:border-box;
+			margin:0;
+			padding:0;
+		}
+		.container{
+			width:100vw;
+			height:100vh;
+			background:linear-gradient(45deg,royalblue,aquamarine);
+		}
+		.top_bar{
+			height: 150px;
+			display:flex;
+			justify-content: space-between;
+		}
+		.trimmer_set{
+		/*	width:20%;*/
+			height:150px;
+			box-shadow:2px 2px 4px white;
+			color:black;
+			font-size:40px;
+			background:white;
+			border:1px solid black;
+			text-align:center;
+		   line-height: 150px;
+		   flex:1;
+		}
+		.trimmer_set input{
+			width:100% !important;
+			height:143px;
+			background:white;
+			border:none !important;
+			box-shadow: none;
+			font-size:40px;
+		}
+		[data-time]{
+			cursor:pointer;
+			text-shadow: 1px 1px 4px grey;
+		}
+		.timmer{
+			position:absolute;
+			top:50%;
+			left:50%;
+			transform:translate(-50%,-50%);
+			width:400px;
+			height: 300px;
+			box-shadow:1px 1px 4px white;
+			color:white;
+			border-radius: 30px;
+
+		}
+		.trimmer_end{
+			font-size:35px;
+			align-items:center;
+		}
+		.trimmer_time{
+			font-size:90px;
+			text-align:center;
+			line-height: 200px;
+
+		}
+
+		
+	</style>
+</head>
+<body>
+	<div class="container">
+		<div class="top_bar">
+			<div class="trimmer_set"data-time='5'>5mint Break
+			</div>
+			<div class="trimmer_set"data-time='10'>10mint Punch
+			</div>
+			<div class="trimmer_set"data-time='60'>60mint lunch
+			</div>
+			<div class="trimmer_set"data-time='15'>15mint Tea Break
+			</div>
+			<div class="trimmer_set">
+			<form name="manual_timmer_set"class="manual_form">
+				<input type="text"name="field">
+			</form>
+		</div>
+		</div>
+		<div class="timmer">
+			<h1 class="trimmer_time">04:44</h1>
+			<div  class="timmer_end">
+				<h3 style="text-align:center;"class="trimmer_end_time">we will back at 03:08</h3>
+			</div>
+		</div>
+	</div>
+	<script>
+		let countdown;
+		let trimmer_set=document.querySelectorAll('.trimmer_set');
+		let trimmer_time=document.querySelector('.trimmer_time');
+		let trimmer_end_time=document.querySelector('.trimmer_end_time');
+		let manual_form=document.querySelector('.manual_form');
+		 manual_form.addEventListener('submit',(e)=>{
+		 	e.preventDefault();
+		 	let manual_time=parseInt(manual_timmer_set.field.value);
+		     e.target.reset();
+		 	start_Timmer(manual_time);
+
+		 })
+
+	       trimmer_set.forEach(trimmer_set=>{
+	          trimmer_set.addEventListener('click',function(e){
+	          	let second=(this.dataset.time*60);
+	          	start_Timmer(second);
+	          });
+	       });
+	       function display_static_time(milisecond){
+	       let T=new Date(milisecond);
+	       let hours=T.getHours();
+	       let minute=T.getMinutes();
+	       hours=`${hours>12?hours%12:hours}`;
+	       minute=`${minute<10?'0':''}${minute}`;
+	       trimmer_end_time.textContent=`we will back at ${hours<10?'0':''}${hours}:${minute}`;
+  }
+		function display_Timmer(TimeLeft){
+			let minute=Math.floor(TimeLeft/60);
+			let second=Math.floor(TimeLeft%60);
+            trimmer_time.textContent=`${minute<10 ? `0`:``}${minute}:${second<10 ?`0`:``}${second}`;
+}
+		function start_Timmer(second){
+	    clearInterval(countdown);
+		let now=Date.now();
+		let then=(now+second*1000);
+		display_static_time(then);
+		display_Timmer((then-Date.now())/1000);
+		countdown=setInterval(()=>{
+			let TimeLeft=((then-Date.now())/1000);
+			if(TimeLeft<0){
+				clearInterval(countdown);
+			}
+			    display_Timmer(TimeLeft);
+		},1000);
+
+}
+</script>
+</body>
+</html>

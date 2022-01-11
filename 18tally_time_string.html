@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+</head>
+<body>
+	<div class="container">
+		<div class="item">
+			<span data-time="4:50">4:50</span>
+		</div>
+		<div class="item">
+			<span data-time="4:30">4:30</span>
+		</div>
+		<div class="item">
+			<span data-time="2:10">2:10</span>
+		</div>
+		<div class="item">
+			<span data-time="2:13">2:13</span>
+		</div>
+		<div class="item">
+			<span data-time="3:20">3:20</span>
+		</div>
+		<div class="item">
+			<span data-time="1:50">1:50</span>
+		</div>
+	    <div class="item">
+			<span data-time="5:50">5:50</span>
+		</div>
+		<div class="item">
+			<span data-time="2:50">2:50</span>
+		</div>
+	</div>
+	<script>
+		let item=document.querySelectorAll('.item span');
+		let toatl_minute;
+	    let new_item=Array.from(item);
+	    let minute1=0;
+	    let second1=0;
+	    new_item.forEach(value=>{
+	    	value=value.dataset.time;
+            minute1=minute1+parseInt(value.split(":")[0]);
+            second1=second1+parseInt(value.split(":")[1]);
+	    	/*minute.push(value.split(":")[0]);
+	    	second.push(value.split(":")[1]);*/
+	    	 
+	    });
+	    console.log(minute1+second1/60);
+	</script>
+
+</body>
+</html>

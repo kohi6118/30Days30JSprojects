@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	<style>
+		*{
+			margin:0;
+			padding:0;
+			box-sizing: border-box;
+		}
+		.panel{
+			width:100vw;
+			height:100vh;
+			display:flex;
+			border:1px solid black;
+
+		}
+		.panels{
+			background-size: cover;
+			object-fit: cover;
+			flex:1;
+			display:flex;
+			justify-content: space-around;
+			align-items: center;
+			color:white;
+			flex-direction: column;
+			font-size: 20px;
+			transition: all 0.7s;
+
+		}
+		 p:first-child{
+			transform: translateY(-100%);
+		}
+		 p:last-child{
+			transform:translateY(100%);
+		}
+		.open{
+			flex:5;
+			font-size: 50px;
+		}
+		.open-active{
+			flex:1;
+			font-size:20px;
+		}
+		.panel1{
+			background-image: url(image/back.jpg);
+			}
+		.panel2{
+			background-image: url(image/back1.jpg);
+			
+		}
+		.panel3{
+			background-image: url(image/back2.jpg);
+			
+		}
+		.panel4{
+			background-image: url(image/back3.jpg);
+		    
+		}
+		.panel5{
+			background-image: url(image/back4.jpg);
+		}
+	</style>
+</head>
+<body>
+	<div class="panel">
+		<div class="panels panel4">
+			<p >hello</p>
+		   <p>how</p>
+		   <p>what</p>
+		</div>
+		<div class="panels panel2">
+			<p class="upper">why</p>
+		   <p>whome</p>
+		   <p class="down">when</p>
+		</div>
+	<div class="panels panel3">
+			<p class="upper">whenevr</p>
+		   <p>what</p>
+		   <p class="down">how</p>
+		</div>
+	<div class="panels panel1">
+			<p class="upper">good</p>
+		   <p>night</p>
+		   <p class="down">hello</p>
+		</div>
+	<div class="panels panel4">
+			<p class="upper">dinner</p>
+		   <p>super</p>
+		   <p class="down">night</p>
+		</div>
+		<div class="panels panel5">
+			<p class="upper">good</p>
+		   <p>day</p>
+		   <p class="down">sunday</p>
+		</div>
+	</div>
+<script>
+	const panel=document.querySelectorAll(".panels");
+	function openfun(){
+		this.classList.toggle("open");
+}
+function settransition(e){
+    this.classList.toggle("open-active");
+ }
+	panel.forEach((value)=>value.addEventListener('click',openfun));
+	panel.forEach((value)=>value.addEventListener('transitioned',settransition));
+</script>
+</body>
+</html>

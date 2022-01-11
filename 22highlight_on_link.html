@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	<meta charset="UTF-8">
+	<style>
+		*{
+			 margin:0;
+			padding:0;
+			box-sizing: border-box;
+		}
+		.main_section{
+			height:100vh;
+			width:100vw;
+			background:linear-gradient(45deg,violet,blue);
+			color:white;
+			
+		}
+		.nav-item{
+			width:100%;
+			padding:10px 0px 40px 0px;
+			display:flex;
+			justify-content: space-around;
+			list-style: none;
+			color:white;
+		}
+		.nav-link{
+			font-size: 18px;
+			font-family: 'Times of Roman';
+			color:white;
+		}
+		.text{
+			font-size: 16px;
+			letter-spacing: 1px;
+			word-spacing: 4px;
+			word-break: break-all;
+
+		}
+		.highlight{
+			transition: 0.5s all;
+			position:absolute;
+			left:0;
+			top:0;
+			box-shadow: 1px 1px 4px grey;
+			background:transparent;
+			color:white;
+			border-radius:20px;
+			z-index:0;
+		}
+		a{ color:white;
+			z-index:300;
+		}
+	</style>
+</head>
+<body>
+	<div class="main_section">
+		<nav class="navbar">
+			<ul class="nav-item">
+				<li class="nav-link">
+					<a href="#">Menu</a></li>
+				<li class="nav-link">
+					<a href="#">Home</a></li>
+				<li class="nav-link">
+					<a href="#">About</a></li>
+				<li class="nav-link">
+					<a href="#">Contact Us</a></li>
+			</ul>
+		</nav>
+		<div class="text">
+			<p class="lead">
+				jsfosjoeworiweorewjrewofskfjsklfjsofjsfjsfosjoeworiweorewjrewofskfjsklfjsofjsfjsfosjoeworiweorewjrewofskfjsklfjsofjsfjsfosjoeworiweorewjrewofskfjsklfjsofjsfjsfosjoeworiweorewjrewofskfjsklfjsofjsfjsfosjoeworiweorewjrewofskfjsklfjsofjsfjsfosjoeworiweorewjrewofskfjsklfjsofjsfjsfosjoeworiweorewjrewofskfjsklfjsofjsfjsfosjoeworiweorewjrewofskfjsklfjsofjsfjsfosjoeworiweorewjrewofskfjsklfjsofjsfjsfosjoeworiweorewjrewofskfjsklfjsofjsfjsfosjoeworiweorewjrewofskfjsklfjsofjsfjsfosjoeworiweorewjrewofskfjsklfjsofjsfjsfosjoeworiweorewjrewofskfjsklfjsofjsfjsfosjoeworiweorewjrewofskfjsklfjsofjsfjsfosjoeworiweorewjrewofskfjsklfjsofjsfjsfosjoeworiweorewjrewofskfjsklfjsofjsfjsfosjoeworiweorewjrewofskfjsklfjsofjsfjsfosjoeworiweorewjrewofskfjsklfjsofjsfjsfosjoeworiweorewjrewofskfjsklfjsofjsfjsfosjoeworiweorewjrewofskfjsklfjsofjsfjsfosjoeworiweorewjrewofskfjsklfjsofjsfjsfosjoeworiweorewjrewofskfjsklfjsofjsfjsfosjoeworiweorewjrewofskfjsklfjsofjsfjsfosjoeworiweorewjrewofskfjsklfjsofjsfjsfosjoeworiweorewjrewofskfjsklfjsofjsfjsfosjoeworiweorewjrewofskfjsklfjsofjsfjsfosjoeworiweorewjrewofskfjsklfjsofjsfjsfosjoeworiweorewjrewofskfjsklfjsofjsfjsfosjoeworiweorewjrewofskfjsklfjsofjsfjsfosjoeworiweorewjrewofskfjsklfjsofjsfjsfosjoeworiweorewjrewofskfjsklfjsofjsfjsfosjoeworiweorewjrewofskfjsklfjsofjsfjsfosjoeworiweorewjrewofskfjsklfjsofjsfjsfosjoeworiweorewjrewofskfjsklfjsofjsfjsfosjoeworiweorewjrewofskfjsklfjsofjsfjsfosjoeworiweorewjrewofskfjsklfjsofjsfjsfosjoeworiweorewjrewofskfjsklfjsofjsfjsfosjoeworiweorewjrewofskfjsklfjsofjsfjsfosjoeworiweorewjrewofskfjsklfjsofjsfjsfosjoeworiweorewjrewofskfjsklfjsofjsfjsfosjoeworiweorewjrewofskfjsklfjsofjsfjsfosjoeworiweorewjrewofskfjsklfjsofjsfjsfosjoeworiweorewjrewofskfjsklfjsofjsfjsfosjoeworiweorewjrewofskfjsklfjsofjsfjsfosjoeworiweorewjrewofskfjsklfjsofjsfjsfosjoeworiweorewjrewofskfjsklfjsofjsfjsfosjoeworiweorewjrewofskfjsklfjsofjsfjsfosjoeworiweorewjrewofskfjsklfjsofjsfjsfosjoeworiweorewjrewofskfjsklfjsofjsfjsfosjoeworiweorewjrewofskfjsklfjsofjsfjsfosjoeworiweorewjrewofskfjsklfjsofjsfjsfosjoewori<a href="#">click</a>weorewjrewofskfjsklfjsofjsfjsfosjoeworiweorewjrewofskfjsklfjsofjsfjsfosjoeworiweorewjrewofskfjsklfjsofjsf
+			</p>
+		</div>
+</div>
+<script>
+	let link=document.querySelectorAll('a');
+	let highlight=document.createElement('span');
+	highlight.classList.add('highlight');
+	document.body.append(highlight);
+	link.forEach(link=>{
+			link.addEventListener('mouseenter',()=>{
+		let linkcord=link.getBoundingClientRect();
+		let object={
+			width:linkcord.width,
+			height:linkcord.height,
+			top:(linkcord.top-window.scrollY),
+			left:linkcord.left
+		};
+	    highlight.style.width=`${object.width}px`;
+		highlight.style.height=`${object.height}px`;
+		highlight.style.transform=`translate(${object.left}px,${object.top}px)`;
+
+
+	});
+	});
+		</script>
+</body>
+</html>
